@@ -3,6 +3,9 @@
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +30,7 @@ Route::get('/books', function () {
 
 Route::get('/books/new', function () {
     return view('books/new');
-});
+})->middleware('auth');
 Route::post('/books', function (Request $request) {
     Book::create([
 
@@ -51,7 +54,7 @@ Route::get("/books/{id}" , function($id){
 
 });
 
-Route::post('/books/{id}', function ($id) {
+Route::delete('/books/{id}', function ($id) {
     $book = Book::find($id);
 
     $book->delete();
@@ -82,5 +85,70 @@ Route::post('/books/{id}', function (Request $request , $id) {
 
     return redirect("/books");
 
+});
+
+Route::get("/signup" , function(){
+
+
+    return view("users/signup");
+
+});
+
+Route::get("/login" , function(){
+
+
+    return view("users/login");
+
+})->name('login');
+
+Route::post("/signup" , function(Request $request){
+
+    User::create([
+        'email'=>$request->email,
+        'username'=>$request->username,
+        'password'=>Hash::make($request->password),
+        'telephone'=>$request->phone,
+    ]);
+
+    auth()->attempt($request->only('email' , 'password'));
+
+    return redirect('/books');
+
+});
+
+Route::post("/login" , function(Request $request){
+
+    auth()->attempt($request->only('email' , 'password'));
+
+    return redirect('/books');
+
+
+});
+
+Route::post('/cart' , function(Request $request){
+
+    $cart = Cart::get()->where('product_id' , $request->product_id)->where('user_id' , $request->user_id);
+
+    if(count($cart)>0){
+        dd($cart[0]);
+        
+        // $cart[0]->quantity++;
+
+        // return redirect('/books');
+
+    }else{
+
+        Cart::create([
+
+            'user_id'=>$request->user_id,
+            'product_id'=>$request->product_id,
+        ]);
+    
+        return redirect('/books');
+    
+    }
+
+
+   
 });
 
