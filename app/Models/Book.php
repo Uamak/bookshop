@@ -15,5 +15,11 @@ class Book extends Model
         'quantity',
         'image',
         'description',
+        'suppliers_id',
     ];
+
+    function suppliers(){
+
+        return $this->belongsTo(Supplier::class);
+    }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->integer('quantity');
             $table->integer('price');
+            $table->foreignId('suppliers_id');
             $table->string('image');
             $table->timestamps();
         });

@@ -7,6 +7,7 @@
 <div class="container" style="width: 40%;">
     <form action="/books/{{$book->id}}" method="post">
         @csrf
+    
         <div class="form-group">
             <label for="" class="form-label">Book Title</label>
             <input type="text" name="name" class="form-control" value="{{$book->name}}">

@@ -1,154 +1,56 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\SuppliersController;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use App\Models\Cart;
 use Illuminate\Support\Facades\Hash;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/books', [BookController::class , 'index']);
 
-Route::get('/books', function () {
+Route::get('/books/new', [BookController::class , 'createBook'] )->middleware('auth');
 
-    $books = Book::get();
+Route::post('/books', [BookController::class , 'store']);
 
+Route::get("/books/{id}" , [BookController::class , 'show']);
 
-    return view('books/index' , [
-        'books'=>$books
-    ]);
-});
+Route::delete('/books/{id}', [BookController::class , 'delete']);
 
-Route::get('/books/new', function () {
-    return view('books/new');
-})->middleware('auth');
-Route::post('/books', function (Request $request) {
-    Book::create([
+Route::get('/books/{id}/edit', [BookController::class , 'updatePage']);
 
-        'name'=>$request->name,
-        'quantity'=>$request->quantity,
-        'price'=>$request->price,
-        'image'=>$request->image,
-        'description'=>$request->description,
-    ]);
+Route::post('/books/{id}', [BookController::class , 'update']);
 
-    return redirect("/books/new");
-});
+Route::get("/signup" , [AuthController::class , 'register']);
 
-Route::get("/books/{id}" , function($id){
+Route::get("/login" , [AuthController::class , 'loginPage'])->name('login');
 
-    $book = Book::find($id);
+Route::post("/signup" , [AuthController::class , 'signupStore']);
 
-    return view("/books/show" , [
-        'book'=>$book
-    ]);
+Route::post("/login" , [AuthController::class , 'loginStore']);
 
-});
+Route::get("/suppliers/new" , [SuppliersController::class , 'create']);
 
-Route::delete('/books/{id}', function ($id) {
-    $book = Book::find($id);
+Route::get("/suppliers" , [SuppliersController::class , 'index']);
 
-    $book->delete();
+Route::post("/suppliers" , [SuppliersController::class , 'store']);
 
-    return redirect('/books');
+Route::get("/suppliers/{id}" , [SuppliersController::class , 'show']);
 
-});
+Route::delete('/suppliers/{id}', [SuppliersController::class , 'destroy']);
 
-Route::get('/books/{id}/edit', function ($id) {
-    $book = Book::find($id);
+Route::get('/suppliers/{id}/edit', [SuppliersController::class , 'update']);
 
-    return view('books/edit' , [
-
-        'book'=>$book
-    ]);
-
-});
-
-Route::post('/books/{id}', function (Request $request , $id) {
-    $book = Book::find($id);
-
-    $book->name = $request->name;
-    $book->price = $request->price;
-    $book->quantity = $request->quantity;
-    $book->image = $request->image;
-    $book->description= $request->description;
-    $book->save();
-
-    return redirect("/books");
-
-});
-
-Route::get("/signup" , function(){
+Route::patch('/suppliers/{id}', [SuppliersController::class , 'edit']);
 
 
-    return view("users/signup");
 
-});
-
-Route::get("/login" , function(){
-
-
-    return view("users/login");
-
-})->name('login');
-
-Route::post("/signup" , function(Request $request){
-
-    User::create([
-        'email'=>$request->email,
-        'username'=>$request->username,
-        'password'=>Hash::make($request->password),
-        'telephone'=>$request->phone,
-    ]);
-
-    auth()->attempt($request->only('email' , 'password'));
-
-    return redirect('/books');
-
-});
-
-Route::post("/login" , function(Request $request){
-
-    auth()->attempt($request->only('email' , 'password'));
-
-    return redirect('/books');
-
-
-});
-
-Route::post('/cart' , function(Request $request){
-
-    $cart = Cart::get()->where('product_id' , $request->product_id)->where('user_id' , $request->user_id);
-
-    if(count($cart)>0){
-        dd($cart[0]);
-        
-        // $cart[0]->quantity++;
-
-        // return redirect('/books');
-
-    }else{
-
-        Cart::create([
-
-            'user_id'=>$request->user_id,
-            'product_id'=>$request->product_id,
-        ]);
     
-        return redirect('/books');
     
-    }
 
 
    
-});
+
 
