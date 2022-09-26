@@ -35,7 +35,7 @@
             <input type="text" name="address" value="{{$supplier->address}}" class="form-control">
         </div>
         <br>
-        <button type="submit" class="btn btn-outline-success">Update book</button>
+        <button type="submit" class="btn btn-outline-success">Update supplier</button>
     </form>
 </div>
     

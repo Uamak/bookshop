@@ -22,4 +22,12 @@ class Book extends Model
 
         return $this->belongsTo(Supplier::class);
     }
+
+    function sales(){
+
+        return $this->belongsTo(Sales::class);
+    }
+
+
+
 }

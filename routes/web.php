@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SalesController;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +46,26 @@ Route::delete('/suppliers/{id}', [SuppliersController::class , 'destroy']);
 Route::get('/suppliers/{id}/edit', [SuppliersController::class , 'update']);
 
 Route::patch('/suppliers/{id}', [SuppliersController::class , 'edit']);
+
+Route::get("/customers/new" , [CustomerController::class , 'create']);
+
+Route::get("/customers" , [CustomerController::class , 'index']);
+
+Route::post("/customers" , [CustomerController::class , 'store']);
+
+Route::get("/customers/{id}" , [CustomerController::class , 'show']);
+
+Route::delete('/customers/{id}', [CustomerController::class , 'destroy']);
+
+Route::get('/customers/{id}/edit', [CustomerController::class , 'edit']);
+
+Route::patch('/customers/{id}', [CustomerController::class , 'update']);
+
+Route::get('/sales/new', [SalesController::class , 'create']);
+
+Route::post("/sales" , [SalesController::class , 'store']);
+
+Route::get("/sales" , [SalesController::class , 'index']);
 
 
 

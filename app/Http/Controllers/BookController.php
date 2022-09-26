@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Book;
+use App\Models\Supplier;
 
 class BookController extends Controller
 {
@@ -17,7 +18,8 @@ class BookController extends Controller
     }
 
     function createBook () {
-        return view('books/new');
+        $suppliers = Supplier::get();
+        return view('books/new' , ['suppliers'=>$suppliers]);
     }
 
     function store (Request $request) {
@@ -28,6 +30,7 @@ class BookController extends Controller
             'price'=>$request->price,
             'image'=>$request->image,
             'description'=>$request->description,
+            'suppliers_id'=>$request->supplier,
         ]);
     
         return redirect("/books/new");

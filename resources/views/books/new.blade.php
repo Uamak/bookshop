@@ -34,6 +34,14 @@
             <textarea name="description"  class="form-control"></textarea>
         </div>
         <br>
+        <div class="form-group">
+            <select name="supplier" id="" class="form-select">
+                @foreach ($suppliers as $supplier)
+                <option value="{{$supplier->id}}">{{$supplier->first_name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <br>
         <button type="submit" class="btn btn-outline-success">Create book</button>
     </form>
 </div>
