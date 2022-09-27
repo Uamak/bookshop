@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Customer;
-use App\Models\Sales;
+use App\Models\Sale;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -12,7 +13,7 @@ class SalesController extends Controller
 
     public function index()
     {
-        dd(Sales::with('customers')->get());
+        dd(Sale::find(1)->customers());
     }
 
 
@@ -26,7 +27,7 @@ class SalesController extends Controller
 
     public function store(Request $request)
     {
-        Sales::create([
+        Sale::create([
             'customer_id'=>$request->customer,
             'book_id'=>$request->book,
             'quantity'=>$request->quantity,

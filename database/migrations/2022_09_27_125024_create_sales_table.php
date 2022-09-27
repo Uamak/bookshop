@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->string('quantity');
-            $table->string('sellingprice');
-            $table->foreignId('book_id')->unsigned()->onDelete('cascade');
-            $table->foreignId('customer_id')->unsigned()->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
+            $table->integer('sellingprice');
             $table->timestamps();
         });
     }

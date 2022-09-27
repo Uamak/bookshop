@@ -30,7 +30,7 @@ class BookController extends Controller
             'price'=>$request->price,
             'image'=>$request->image,
             'description'=>$request->description,
-            'suppliers_id'=>$request->supplier,
+            'supplier_id'=>$request->supplier,
         ]);
     
         return redirect("/books/new");

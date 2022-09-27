@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Sale;
 
 class Book extends Model
 {
@@ -15,18 +16,18 @@ class Book extends Model
         'quantity',
         'image',
         'description',
-        'suppliers_id',
+        'supplier_id',
     ];
 
-    function suppliers(){
+    public function suppliers(){
 
         return $this->belongsTo(Supplier::class);
     }
 
-    function sales(){
+     public function sales(){
 
-        return $this->belongsTo(Sales::class);
-    }
+         return $this->belongsTo(Sale::class);
+     }
 
 
 
