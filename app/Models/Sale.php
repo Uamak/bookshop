@@ -18,13 +18,17 @@ class Sale extends Model
         'book_id',
         'customer_id',
     ];
+
     public function books(){
 
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(Book::class , 'id');
     }
+    
 
     public function customers(){
 
-        return $this->hasMany(Customer::class, 'customer_id');
+        return $this->belongsTo(Customer::class , 'id');
     }
+
+
 }

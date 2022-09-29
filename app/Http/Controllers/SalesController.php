@@ -13,7 +13,18 @@ class SalesController extends Controller
 
     public function index()
     {
-        dd(Sale::find(1)->customers());
+        $sales = Sale::get();
+        // dd($books);
+
+        // foreach($books as $book){
+
+        //     dd($book->customers);
+
+        // }
+
+        return view('sales/index' , ['sales'=>$sales]);
+        
+
     }
 
 
