@@ -67,6 +67,12 @@ Route::post("/sales" , [SalesController::class , 'store']);
 
 Route::get("/sales" , [SalesController::class , 'index']);
 
+Route::get("/sales/{id}" , [SalesController::class , 'show']);
+
+Route::get("/sales/{id}/edit" , [SalesController::class , 'edit']);
+
+Route::patch("/sales/{id}" , [SalesController::class , 'update']);
+
 
 
     

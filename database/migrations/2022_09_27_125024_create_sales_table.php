@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
             $table->integer('sellingprice');
+            $table->integer('total');
             $table->timestamps();
         });
     }

@@ -13,12 +13,13 @@
             <th>Quantity</th>
             <th>Selling Price</th>
             <th>Total</th>
-            <th>Operations</th>
+            {{-- <th>Operations</th> --}}
            
         </tr>
 </thead>
 <tbody>
-    @foreach ($sales as $sale)
+    @foreach ($sale as $sale)
+        
     <tr>
         <td>{{$sale->id}}</td>
         <td>{{$sale->customer_id}}</td>
@@ -28,8 +29,8 @@
         <td>{{$sale->quantity}}</td>
         <td>{{$sale->sellingprice}}</td>
         <td>{{$sale->total}}</td>
-        <td><a href="/sales/{{$sale->id}}" class="btn btn-info btn-sm">Show Sale</a>||<a href="/sales/{{$sale->id}}/edit" class="btn btn-primary btn-sm">Update</a>||<form action="" class="d-inline"><button class="btn btn-outline-danger btn-sm">Delete Sale</button></form></td>
-</tr>
+        {{-- <td><a href="" class="btn btn-info btn-sm">Show Sale</a>||<a href="" class="btn btn-primary btn-sm">Update</a>||<form action="" class="d-inline"><button class="btn btn-outline-danger btn-sm">Delete Sale</button></form></td> --}}
+    </tr>
     @endforeach
 </tbody>
 </table>
